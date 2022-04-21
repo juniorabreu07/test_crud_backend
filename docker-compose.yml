@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:11.5
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_DB: $MY_DB_NAME
+      # POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: $MY_DB_PASSWORD
+    networks:
+      - prueba
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    stdin_open: true
+    tty: true
+
+networks:
+  default:
+    external:
+      name: js-net
+  prueba:
+    # Use a custom driver
+    driver: bridge
