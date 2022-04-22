@@ -42,7 +42,7 @@ Para verificar el serivico puede ingresar a su navegador con esta ruta.
   { method: 'POST', path: '/api/v1/auth/signin' }, <br>
   { method: 'POST', path: '/api/v1/auth/signout' }, <br>
   { method: 'GET', path: '/api/v1/products' }, <br>
-  { method: 'GET', path: '/api/v1/products/:id' },
+  { method: 'GET', path: '/api/v1/products/:id' }, <br>
   { method: 'DELETE', path: '/api/v1/products/:id' }, <br>
   { method: 'PUT', path: '/api/v1/products/:id' }, <br>
   { method: 'POST', path: '/api/v1/products' } <br>
