@@ -37,12 +37,12 @@ Para verificar el serivico puede ingresar a su navegador con esta ruta.
 
 ## Rutas
 
-  { method: 'GET', path: '/' },
-  { method: 'POST', path: '/api/v1/auth/signup' },
-  { method: 'POST', path: '/api/v1/auth/signin' },
-  { method: 'POST', path: '/api/v1/auth/signout' },
-  { method: 'GET', path: '/api/v1/products' },
+  { method: 'GET', path: '/' }, <br>
+  { method: 'POST', path: '/api/v1/auth/signup' }, <br>
+  { method: 'POST', path: '/api/v1/auth/signin' }, <br>
+  { method: 'POST', path: '/api/v1/auth/signout' }, <br>
+  { method: 'GET', path: '/api/v1/products' }, <br>
   { method: 'GET', path: '/api/v1/products/:id' },
-  { method: 'DELETE', path: '/api/v1/products/:id' },
-  { method: 'PUT', path: '/api/v1/products/:id' },
-  { method: 'POST', path: '/api/v1/products' }
+  { method: 'DELETE', path: '/api/v1/products/:id' }, <br>
+  { method: 'PUT', path: '/api/v1/products/:id' }, <br>
+  { method: 'POST', path: '/api/v1/products' } <br>
