@@ -2,11 +2,11 @@ import { Response } from 'express'
 
 const response = (
   error: boolean,
-  message: Record<string, unknown> | string,
+  data: Record<string, unknown> | string,
   res: Response,
   status: number
 ): void => {
-  res.status(status).send({ error, message })
+  res.status(status).send({ error, data })
 }
 
 export { response }

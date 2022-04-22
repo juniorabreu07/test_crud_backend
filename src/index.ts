@@ -32,10 +32,13 @@ class Server {
 
     this.app.use("/public/", express.static(process.env.PATH_FOLDER_PUBLIC || "/public"))
     this.app.use(express.json())
-    this.app.use(express.urlencoded({ extended: false }))
-    this.app.use(cors())
+    this.app.use(express.urlencoded({ extended: true }))
+    this.app.use(cors({ credentials: true, origin: true }))
+    // this.app.options('*', cors({ credentials: true, origin: true }));
+    this.app.use(cors({ credentials: true, origin: 'http://localhost:3001' }))
     this.app.use(cookieSession({
-      name: "bezkoder-session",
+      name: "my-test-crud-session",
+
       secret: process.env.COOKIE_SECRET,
       httpOnly: true,
       sameSite: 'strict'
@@ -46,10 +49,28 @@ class Server {
     })
 
     this.app.use((req, res, next) => {
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, Content-Type, Accept"
-      );
+      // res.header(
+      //   "Access-Control-Allow-Headers",
+      //   "Origin, Content-Type, Accept"
+      // );
+      // // res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE')
+      // // res.header('Access-Control-Allow-Origin', '*')
+      // // res.header(
+      // //   'Access-Control-Allow-Headers',
+      // //   'Authorization, Content-Type'
+      // // )
+      // // Website you wish to allow to connect
+      // res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+
+      // // Request methods you wish to allow
+      // res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+      // // Request headers you wish to allow
+      // res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+      // // Set to true if you need the website to include cookies in the requests sent
+      // // to the API (e.g. in case you use sessions)
+      // res.header('Access-Control-Allow-Credentials', "true");
       next();
     });
     this.app.use(
@@ -71,8 +92,6 @@ class Server {
 
     routes(this.app)
     this.showAllRoutes()
-    // this.app.use('/users', AuthRoute);
-    // this.app.use('/api/v1', routes)
   }
 
 

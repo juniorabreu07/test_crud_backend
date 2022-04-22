@@ -3,6 +3,7 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import { User } from "../db/models";
 import { UserInterface } from '../interfaces';
+import { response } from '../utils';
 require('dotenv').config()
 
 const jwt = require("jsonwebtoken");
@@ -11,18 +12,18 @@ const secret_key = process.env.MY_SECRET_KEY_JWT;
 export const signup = async (req: Request, res: Response) => {
   try {
     const userParams: UserInterface = req.body as UserInterface;
-    const user = await User.create({
+    let user = await User.create({
       username: userParams.username,
       email: userParams.email,
       nombres: userParams.nombres,
       apellidos: userParams.apellidos,
       password: bcrypt.hashSync(userParams.password, 8),
     });
+    // delete user.password;
 
-    res.send({ message: "User registered successfully!", user: user });
-
+    response(false, { message: "User registered successfully!", user: user }, res, 200);
   } catch (error: any) {
-    res.status(500).send({ message: error.message });
+    response(true, { message: error.message }, res, 500);
   }
 };
 
@@ -32,12 +33,12 @@ export const signin = async (req: Request, res: Response) => {
 
     const user = await User.findOne({
       where: {
-        username: params.username,
+        email: params.email,
       },
     });
 
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return response(true, { message: "User Not found." }, res, 404);
     }
 
     const passwordIsValid = bcrypt.compareSync(
@@ -46,9 +47,7 @@ export const signin = async (req: Request, res: Response) => {
     );
 
     if (!passwordIsValid) {
-      return res.status(401).send({
-        message: "Invalid Password!",
-      });
+      return response(true, { message: "Invalid Password!" }, res, 404);
     }
 
     const token = jwt.sign({ id: user.id }, secret_key, {
@@ -56,14 +55,14 @@ export const signin = async (req: Request, res: Response) => {
     });
 
     req.session = { token };
-
-    return res.status(200).send({
+    return response(false, {
       id: user.id,
       username: user.username,
       email: user.email,
-    });
+      token
+    }, res, 200);
   } catch (error: any) {
-    return res.status(500).send({ message: error.message });
+    return response(true, { message: error.message }, res, 500);
   }
 };
 
