@@ -3,7 +3,6 @@ require('dotenv').config()
 
 export const verifyToken = (req: any, res: any, next: any) => {
   let token = req.session.token;
-
   if (!token) {
     return res.status(403).send({
       message: "No token provided!",

@@ -55,10 +55,10 @@ class Server {
       // );
       // // res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE')
       // // res.header('Access-Control-Allow-Origin', '*')
-      // // res.header(
-      // //   'Access-Control-Allow-Headers',
-      // //   'Authorization, Content-Type'
-      // // )
+      res.header(
+        'Access-Control-Allow-Headers',
+        'Authorization, Content-Type'
+      )
       // // Website you wish to allow to connect
       // res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
 
